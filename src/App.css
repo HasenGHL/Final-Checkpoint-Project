@@ -1,0 +1,24 @@
+/* Navbar */
+
+.navbar-nav a{
+    font-size: 18px;
+}
+
+/* Hero */
+
+.card-img{
+    object-fit: cover;
+    height: 90vh;
+}
+
+.card-img-overlay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Products */
+
+.card-img-top{
+    object-fit: contain;
+}
