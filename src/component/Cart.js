@@ -1,25 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { delCart } from "../redux/action";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { delCart } from '../redux/action/index';
 import handleCart from "../redux/reducer/handleCart";
 
 const Cart = () => {
 
   const state = useSelector((state) => state.handleCart);
-  const dispatch = useDispatch();
 
-  const delCart = (product) => {
+  const { id } = useParams();
+  const [product, setProduct] = useState([]);
+
+  const dispatch = useDispatch();
+  const delProduct = (product) => {
     dispatch(delCart(product));
   };
 
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
+      setProduct(await response.data);
+    };
+    fetchData();
+  }, []);
 
-  const cartItems = (product) => {
+  const cartItems = () => {
+
     return (
       <div className="px-4 my-5 bg-light rounded-3" key={product.id}>
         <div className="container py-4">
           <button
-            onClick={() => delCart(product)}
+            onClick={() => delProduct(product)}
             className="btn-close float-end"
             aria-label="Close"
           ></button>
